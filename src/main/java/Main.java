@@ -15,17 +15,6 @@ public class Main {
     private static final String END = "END";
 
     public static void main(String[] args) {
-        System.out.println("Hello KirkLand !!");
-//        Log check = new Log(LocalTime.of(4,4,4), "new money", "MUSIC", 444);
-//        Log check2 = new Log(LocalTime.of(4,9,4), "new money", "END", 888);
-//
-//
-//        System.out.println(check.toString());
-        var s_ = LocalTime.of(2,2,2);
-        var s = LocalTime.of(4,4,4);
-        var _s = LocalTime.of(3,3,3);
-
-
         String filePath = "src/main/resources/logs[7][50][15].log";
 
         getData(filePath);
@@ -70,15 +59,6 @@ public class Main {
         return Math.abs(duration.toMinutes());
     }
 
-//    public static long getTimeDifference(LocalTime start, LocalTime end) {
-////            var end_log = log_Map.get(START).getEnd();
-////            var start_log = log_Map.get(END).getEnd();
-////            if (end_log != null) {
-////                long result = checkTimeDifference(start_log.time(), end_log.time());
-////        }
-//        return checkTimeDifference(start, end);
-//    }
-
     // get time difference
     public static  Map<Long, Long> getTimeDifference() {
         Collection<LogEntry> logEntryValues = log_Map.values();
@@ -89,14 +69,15 @@ public class Main {
             LogEntry element = itr.next();
             var id = element.getStart().PID();
             var start_time = element.getStart().time();
-            var end_time = Optional.of(element.getEnd().time()).orElse(null);
+            var end_time = Optional.ofNullable(element.getEnd())
+                    .map(Log::time)
+                    .orElse(null);
             if (element.getEnd() != null) {
                 logDuration.put(id, checkTimeDifference(start_time, end_time));
             } else {
                 logDuration.put(id, null);
             }
         }
-
         return logDuration;
     }
 
