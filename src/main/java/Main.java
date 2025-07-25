@@ -6,8 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalTime;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
 
@@ -30,8 +29,12 @@ public class Main {
         String filePath = "src/main/resources/logs[7][50][15].log";
 
         getData(filePath);
+        System.out.println(log_Map.values());
 //        System.out.println(log_Map.toString());
-        getTimeDifference(s, _s);
+//        getTimeDifference(s, _s);
+        System.out.println("to fly");
+        System.out.println(getTimeDifference());
+//        loop();
 
     }
 
@@ -67,20 +70,45 @@ public class Main {
         return Math.abs(duration.toMinutes());
     }
 
-    public static void getTimeDifference(LocalTime start, LocalTime end) {
-            var end_log = log_Map.get(START).getEnd();
-            var start_log = log_Map.get(END).getEnd();
-            if (end_log != null) {
-                long result = checkTimeDifference(start_log.time(), end_log.time());
-                System.out.println("laura byrne");
+//    public static long getTimeDifference(LocalTime start, LocalTime end) {
+////            var end_log = log_Map.get(START).getEnd();
+////            var start_log = log_Map.get(END).getEnd();
+////            if (end_log != null) {
+////                long result = checkTimeDifference(start_log.time(), end_log.time());
+////        }
+//        return checkTimeDifference(start, end);
+//    }
+
+    // get time difference
+    public static  Map<Long, Long> getTimeDifference() {
+        Collection<LogEntry> logEntryValues = log_Map.values();
+        Map<Long, Long> logDuration = new HashMap<>();
+
+        Iterator<LogEntry> itr = logEntryValues.iterator();
+        while (itr.hasNext()) {
+            LogEntry element = itr.next();
+            var id = element.getStart().PID();
+            var start_time = element.getStart().time();
+            var end_time = Optional.of(element.getEnd().time()).orElse(null);
+            if (element.getEnd() != null) {
+                logDuration.put(id, checkTimeDifference(start_time, end_time));
+            } else {
+                logDuration.put(id, null);
+            }
         }
+
+        return logDuration;
     }
 
     // error catch class
-    public static void loop(Log start_log, Log end_log) {
-        for (Map.Entry<Long, LogEntry> entry : log_Map.entrySet()) {
-        }
-    }
+//    public static void loop() {
+//        for (Map.Entry<Long, LogEntry> entry : log_Map.entrySet()) {
+//            var start = entry.getValue().getStart();
+//            var end = entry.getValue().getEnd();
+//            getTimeDifference(start, end);
+//        }
+//    }
+
 
 
 }
