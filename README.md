@@ -1,4 +1,4 @@
-Log Monitoring Application
+#Log Monitoring Application
 
 The application reads a log file and measures how long each job takes from start to finish. It also generates a warnings 
 or errors if the processing time exceeds certain thresholds (5 minutes for warning and 10 minutes for error).
@@ -18,8 +18,9 @@ The logs within the log file have the following structure:
     • Each job has a PID associated with it e.g., 46578.
 
 Assumption Made
-    I assumed that any log entry which has a start but no end when the end of the file is reached can be assumed to be an error and therefore a n error        warning is given for it.
-    
+    • I assumed that any log entry which has a start but no end when the end of the file is 
+      reached can be assumed to be an error and therefore a n error warning is given for it.
+
 The application can be started by running the Main class.
 
 
