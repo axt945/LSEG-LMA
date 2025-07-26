@@ -1,4 +1,4 @@
-##Log Monitoring Application
+Log Monitoring Application
 
 The application reads a log file and measures how long each job takes from start to finish. It also generates a warnings 
 or errors if the processing time exceeds certain thresholds (5 minutes for warning and 10 minutes for error).
